@@ -38,18 +38,18 @@ void LinkedList::printList() {
     Node* currNode = head; 
 
     while (currNode != nullptr) { 
-        std::cout << currNode->data << std::endl; 
-        currNode = currNode->link; 
+        std::cout << currNode->get_data() << std::endl; 
+        currNode = currNode->get_link(); 
     } 
-    std::cout << std::endl; 
+    std::cout << std::endl;
 }
 
 Node* LinkedList::traverse(unsigned int index) {
     unsigned int position = 0;
-    Node* currNode = head; 
+    Node* currNode = head;
 
     while (currNode != nullptr && position < index) { 
-        currNode = currNode->link; 
+        currNode = currNode->get_link(); 
         position++;
     }
     
@@ -73,18 +73,18 @@ void LinkedList::insertAtPosition(int pos, int newNum) {
         Node* currNode = head;
         int position = 0;
         while (currNode != nullptr && position < pos) {
-        currNode = currNode->link;
+        currNode = currNode->get_link();
         position++;
         }
 
         prevNode = traverse(position - 1);
-        prevNode->link = newNode;
+        prevNode->set_link(newNode);
         return;
     }
 
     // If it is in bound
-    Node *newNode  = new Node(newNum, prevNode->link);
-    prevNode->link = newNode;
+    Node *newNode  = new Node(newNum, prevNode->get_link());
+    prevNode->set_link(newNode);
 }
 
 bool LinkedList::deletePosition(int pos) {
@@ -98,7 +98,10 @@ bool LinkedList::deletePosition(int pos) {
     }
 
     Node* prevNode = traverse(pos - 1);
-    prevNode->link = traverse(pos + 1);
+    // prevNode->get_link() = traverse(pos + 1);
+    // prevNode->link = traverse(pos + 1);
+    Node* currNode = head;
+    prevNode->set_link(traverse(pos + 1));
 
     delete temp;
     return true;
@@ -107,10 +110,10 @@ bool LinkedList::deletePosition(int pos) {
 int LinkedList::get(int pos) {
     Node* currNode = traverse(pos);
     
-    if (currNode->link == nullptr) {
+    if (currNode->get_link() == nullptr) {
         return std::numeric_limits < int >::max();
     } else {
-        return currNode->data;
+        return currNode->get_data();
     }
 }
 
@@ -118,12 +121,12 @@ int LinkedList::search(int target) {
     Node* currNode = head;
     int position = 0;
     
-    while (currNode != nullptr && currNode->data == target) {
-        currNode = currNode->link;
+    while (currNode != nullptr && currNode->get_data() == target) {
+        currNode = currNode->get_link();
         position++;
     }
     
-    if (currNode->link == nullptr) return -1;
+    if (currNode->get_link() == nullptr) return -1;
 
     return position - 1;
 }
@@ -134,6 +137,6 @@ void LinkedList::deleteFromFront() {
     }
 
     Node* temp = head;
-    head = head->link;
+    head = head->get_link();
     delete temp;
 }

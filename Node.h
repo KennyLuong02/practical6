@@ -1,6 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
-#include "LinkedList.h"
+
+using namespace std;
 
 class Node {
     private:
@@ -8,10 +9,15 @@ class Node {
         Node* link;
 
     public:
+        Node(int, Node*);
+        void set_data(int i_data);
+        int get_data();
 
-    Node(int, Node*);
+        void set_link(Node* i_link);
+        Node* get_link();
 
-    friend class LinkedList;
+
+    // friend class LinkedList;
 };
 
 #endif

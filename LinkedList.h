@@ -2,6 +2,8 @@
 #define LINKEDLIST_H
 #include "Node.h"
 
+using namespace std;
+
 class LinkedList {
     private:
         Node* head;
