@@ -140,7 +140,7 @@ int LinkedList::search(int target) {
     
     if (currNode->get_link() == nullptr) return -1;
 
-    return position - 1;
+    return position++;
 }
 
 void LinkedList::deleteFromFront() {
