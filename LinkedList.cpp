@@ -86,8 +86,6 @@ void LinkedList::insertPosition(int pos, int newNum) {
         position++;
         }
 
-        cout << "Hello2" << endl;
-
         prevNode = traverse(position - 1);
         prevNode->set_link(newNode);
         return;
