@@ -15,7 +15,7 @@ class LinkedList {
         ~LinkedList(); //A destructor that deletes all nodes from the list
 
         // create a new node with an int of data at the index'th position of the list; inserting out of bounds does nothing
-        void insertAtPosition(int pos, int newNum);
+        void insertPosition(int pos, int newNum);
 
         bool deletePosition(int pos); //method to remove the node at position
                                       //If it successfully deletes the node, it should return true

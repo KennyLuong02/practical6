@@ -24,7 +24,7 @@ LinkedList::LinkedList(int* array, int len){
     // Node* currNode = head;
 
     for (int i = 2; i < len + 1; i++) {
-        insertAtPosition(i, array[i - 1]);
+        insertPosition(i, array[i - 1]);
     }
 }
 
@@ -64,7 +64,7 @@ Node* LinkedList::traverse(unsigned int index) {
     return currNode;
 }
 
-void LinkedList::insertAtPosition(int pos, int newNum) {
+void LinkedList::insertPosition(int pos, int newNum) {
     // A pos of 1 (or less) places a new node at the front of the list
     if (pos <= 1) {
         head = new Node(newNum, head);
