@@ -4,7 +4,7 @@
 #include <list>
 #include <string>
 
-class bigNumCalc {
+class BigNumCalc {
     private:
     std::list<int> addCarry(std::list<int> in1 , std::list<int> in2 , int carry , std::list<int> currentList);
     std::list<int> subCarry(std::list<int> in1 , std::list<int> in2 , int carry , std::list<int> currentList);

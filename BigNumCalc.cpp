@@ -4,7 +4,7 @@
 #include "BigNumCalc.h"
 
 
-std::list<int> bigNumCalc::buildBigNum(std::string strInput) {
+std::list<int> BigNumCalc::buildBigNum(std::string strInput) {
 
     std::list<int> listNum;
 
@@ -19,7 +19,7 @@ std::list<int> bigNumCalc::buildBigNum(std::string strInput) {
 //Like how we do binary addition, values that went out of bound 10 (from 0-9 is bound 10)
 //will get carry over to the next node. It's a linked list so recursion can't be used :(
 
-std::list<int> bigNumCalc::add(std::list<int> num1Input , std::list<int> num2Input) {   
+std::list<int> BigNumCalc::add(std::list<int> num1Input , std::list<int> num2Input) {   
 
     std::list<int> listReturn;
 
@@ -47,7 +47,7 @@ std::list<int> bigNumCalc::add(std::list<int> num1Input , std::list<int> num2Inp
 
 }   
 
-std::list<int> bigNumCalc::addCarry(std::list<int> num1In , std::list<int> num2In , int carry , std::list<int> curentList) {
+std::list<int> BigNumCalc::addCarry(std::list<int> num1In , std::list<int> num2In , int carry , std::list<int> curentList) {
 
     std::list<int>::reverse_iterator riter1 = num1In.rbegin();
 
@@ -88,7 +88,7 @@ std::list<int> bigNumCalc::addCarry(std::list<int> num1In , std::list<int> num2I
 
 }
 
-std::list<int> bigNumCalc::sub(std::list<int> num1Input, std::list<int> num2Input) {
+std::list<int> BigNumCalc::sub(std::list<int> num1Input, std::list<int> num2Input) {
     std::list<int> listReturn;
 
     if (num1Input.size() == num2Input.size()) {
@@ -108,7 +108,7 @@ std::list<int> bigNumCalc::sub(std::list<int> num1Input, std::list<int> num2Inpu
     return subCarry(num1Input, num2Input, 0, listReturn);
 }
 
-std::list<int> bigNumCalc::mul(std::list<int> num1Input , std::list<int> num2Input) {
+std::list<int> BigNumCalc::mul(std::list<int> num1Input , std::list<int> num2Input) {
     std::list<int> product;
     int digit;
     

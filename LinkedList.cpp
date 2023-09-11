@@ -100,7 +100,6 @@ bool LinkedList::deletePosition(int pos) {
     Node* prevNode = traverse(pos - 1);
     // prevNode->get_link() = traverse(pos + 1);
     // prevNode->link = traverse(pos + 1);
-    Node* currNode = head;
     prevNode->set_link(traverse(pos + 1));
 
     delete temp;
