@@ -72,7 +72,7 @@ void LinkedList::insertPosition(int pos, int newNum) {
     }
 
     // if inserting between two nodes; i.e. [A, C] -> [A, B, C]
-    Node *prevNode = traverse(pos - 1);
+    Node *prevNode = traverse(pos - 2);
 
     // if inserting out of bounds
     if (prevNode == nullptr) {
@@ -80,19 +80,22 @@ void LinkedList::insertPosition(int pos, int newNum) {
 
         Node* currNode = head;
         int position = 0;
+
         while (currNode != nullptr && position < pos) {
         currNode = currNode->get_link();
         position++;
         }
+
+        cout << "Hello2" << endl;
 
         prevNode = traverse(position - 1);
         prevNode->set_link(newNode);
         return;
     }
 
-    Node* nextNode = traverse(pos);
+    Node* nextNode = traverse(pos - 1);
     // If it is in bound
-    Node *newNode  = new Node(newNum, nextNode->get_link());
+    Node *newNode  = new Node(newNum, nextNode);
 
     prevNode->set_link(newNode);
 }
