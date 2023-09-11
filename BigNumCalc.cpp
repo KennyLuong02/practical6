@@ -8,7 +8,7 @@ std::list<int> bigNumCalc::buildBigNum(std::string strInput) {
 
     std::list<int> listNum;
 
-    for(int i=0 ; i<strInput.size() ; i++) {
+    for(unsigned int i=0 ; i<strInput.size() ; i++) {
         listNum.push_back(int(strInput[i]-48)); //Because the ASCII characters for numer value are numeber + 48
     }
 
@@ -31,13 +31,13 @@ std::list<int> bigNumCalc::add(std::list<int> num1Input , std::list<int> num2Inp
 
     } else if(num1Input.size() < num2Input.size()) {
 
-        for(int i=0 ; i<(num2Input.size() - num1Input.size()) ; i++) {
+        for(unsigned int i=0 ; i<(num2Input.size() - num1Input.size()) ; i++) {
             num1Input.push_front(0);
         }
 
     } else if(num1Input.size() > num2Input.size()) {
 
-        for(int i=0 ; i<(num1Input.size() - num2Input.size()) ; i++) {
+        for(unsigned int i=0 ; i<(num1Input.size() - num2Input.size()) ; i++) {
             num2Input.push_front(0);
         }
 
@@ -96,11 +96,11 @@ std::list<int> bigNumCalc::sub(std::list<int> num1Input, std::list<int> num2Inpu
 
         return subCarry(num1Input, num2Input, 0, listReturn);
     } else if (num1Input.size() < num2Input.size()) {
-        for (int i = 0; i < (num2Input.size() - num1Input.size()); i++) {
+        for (unsigned int i = 0; i < (num2Input.size() - num1Input.size()); i++) {
             num1Input.push_front(0);
         }
     } else if (num1Input.size() > num2Input.size()) {
-        for (int i = 0; i < (num1Input.size() - num2Input.size()); i++) {
+        for (unsigned int i = 0; i < (num1Input.size() - num2Input.size()); i++) {
             num2Input.push_front(0);
         }
     }
