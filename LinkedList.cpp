@@ -102,24 +102,24 @@ bool LinkedList::deletePosition(int pos) {
         return false;
     }
 
-    Node* temp = traverse(pos);
+    Node* temp = traverse(pos - 1);
     if (temp == nullptr) {
         return false;
     }
 
-    Node* prevNode = traverse(pos - 1);
+    Node* prevNode = traverse(pos - 2);
     // prevNode->get_link() = traverse(pos + 1);
     // prevNode->link = traverse(pos + 1);
-    prevNode->set_link(traverse(pos + 1));
+    prevNode->set_link(traverse(pos));
 
     delete temp;
     return true;
 }
 
 int LinkedList::get(int pos) {
-    Node* currNode = traverse(pos);
+    Node* currNode = traverse(pos - 1);
     
-    if (currNode->get_link() == nullptr) {
+    if (currNode == nullptr) {
         return std::numeric_limits < int >::max();
     } else {
         return currNode->get_data();
