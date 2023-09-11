@@ -8,7 +8,7 @@ std::list<int> BigNumCalc::buildBigNum(std::string strInput) {
 
     std::list<int> listNum;
 
-    for(int i=0 ; i<strInput.size() ; i++) {
+    for(size_t i=0 ; i<strInput.size() ; i++) {
         listNum.push_back(int(strInput[i]-48)); //Because the ASCII characters for numer value are numeber + 48
     }
 
@@ -25,19 +25,19 @@ std::list<int> BigNumCalc::add(std::list<int> num1Input , std::list<int> num2Inp
 
     if(num1Input.size() == num2Input.size()) {
 
-        std::list<int>::iterator listPtr = num1Input.end();
+        // std::list<int>::iterator listPtr = num1Input.end();
 
         return addCarry(num1Input , num2Input , 0 , listReturn);
 
     } else if(num1Input.size() < num2Input.size()) {
 
-        for(int i=0 ; i<(num2Input.size() - num1Input.size()) ; i++) {
+        for(size_t i=0 ; i<(num2Input.size() - num1Input.size()) ; i++) {
             num1Input.push_front(0);
         }
 
     } else if(num1Input.size() > num2Input.size()) {
 
-        for(int i=0 ; i<(num1Input.size() - num2Input.size()) ; i++) {
+        for(size_t i=0 ; i<(num1Input.size() - num2Input.size()) ; i++) {
             num2Input.push_front(0);
         }
 
@@ -57,7 +57,7 @@ std::list<int> BigNumCalc::addCarry(std::list<int> num1In , std::list<int> num2I
 
     int carryNum = carry;   //Value that gets carried to the next calculation
 
-    for(riter1 ; riter1 != num1In.rend() ; riter1++) {
+    for(riter1 = riter1; riter1 != num1In.rend() ; riter1++) {
         addNum = (*riter1 + *riter2);
         
         curentList.push_front(addNum + carryNum);
@@ -88,15 +88,15 @@ std::list<int> BigNumCalc::sub(std::list<int> num1Input, std::list<int> num2Inpu
     std::list<int> listReturn;
 
     if (num1Input.size() == num2Input.size()) {
-        std::list<int>::iterator listPtr = num1Input.end();
+        // std::list<int>::iterator listPtr = num1Input.end();
 
         return subCarry(num1Input, num2Input, 0, listReturn);
     } else if (num1Input.size() < num2Input.size()) {
-        for (int i = 0; i < (num2Input.size() - num1Input.size()); i++) {
+        for (size_t i = 0; i < (num2Input.size() - num1Input.size()); i++) {
             num1Input.push_front(0);
         }
     } else if (num1Input.size() > num2Input.size()) {
-        for (int i = 0; i < (num1Input.size() - num2Input.size()); i++) {
+        for (size_t i = 0; i < (num1Input.size() - num2Input.size()); i++) {
             num2Input.push_front(0);
         }
     }
@@ -113,7 +113,7 @@ std::list<int> BigNumCalc::subCarry(std::list<int> num1In , std::list<int> num2I
     int carryVal = carry;
 
 
-    for(reIt1 ; reIt1 != num1In.rend() ; reIt1++) {
+    for(reIt1 = reIt1; reIt1 != num1In.rend() ; reIt1++) {
         
         if(*reIt1 - (*reIt2 + carryVal) < 0 ) {
             insertNum = (*reIt1 + 10) - (*reIt2 + carryVal);    //If the result is lesser than 0, add 10 to first
