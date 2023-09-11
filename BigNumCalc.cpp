@@ -8,7 +8,7 @@ std::list<int> BigNumCalc::buildBigNum(std::string strInput) {
 
     std::list<int> listNum;
 
-    for(unsigned int i=0 ; i<strInput.size() ; i++) {
+    for(int i=0 ; i<strInput.size() ; i++) {
         listNum.push_back(int(strInput[i]-48)); //Because the ASCII characters for numer value are numeber + 48
     }
 
@@ -31,13 +31,13 @@ std::list<int> BigNumCalc::add(std::list<int> num1Input , std::list<int> num2Inp
 
     } else if(num1Input.size() < num2Input.size()) {
 
-        for(unsigned int i=0 ; i<(num2Input.size() - num1Input.size()) ; i++) {
+        for(int i=0 ; i<(num2Input.size() - num1Input.size()) ; i++) {
             num1Input.push_front(0);
         }
 
     } else if(num1Input.size() > num2Input.size()) {
 
-        for(unsigned int i=0 ; i<(num1Input.size() - num2Input.size()) ; i++) {
+        for(int i=0 ; i<(num1Input.size() - num2Input.size()) ; i++) {
             num2Input.push_front(0);
         }
 
@@ -82,10 +82,6 @@ std::list<int> BigNumCalc::addCarry(std::list<int> num1In , std::list<int> num2I
         return curentList;
         
     }
-
-
-
-
 }
 
 std::list<int> BigNumCalc::sub(std::list<int> num1Input, std::list<int> num2Input) {
@@ -96,11 +92,11 @@ std::list<int> BigNumCalc::sub(std::list<int> num1Input, std::list<int> num2Inpu
 
         return subCarry(num1Input, num2Input, 0, listReturn);
     } else if (num1Input.size() < num2Input.size()) {
-        for (unsigned int i = 0; i < (num2Input.size() - num1Input.size()); i++) {
+        for (int i = 0; i < (num2Input.size() - num1Input.size()); i++) {
             num1Input.push_front(0);
         }
     } else if (num1Input.size() > num2Input.size()) {
-        for (unsigned int i = 0; i < (num1Input.size() - num2Input.size()); i++) {
+        for (int i = 0; i < (num1Input.size() - num2Input.size()); i++) {
             num2Input.push_front(0);
         }
     }
@@ -108,20 +104,61 @@ std::list<int> BigNumCalc::sub(std::list<int> num1Input, std::list<int> num2Inpu
     return subCarry(num1Input, num2Input, 0, listReturn);
 }
 
-std::list<int> BigNumCalc::mul(std::list<int> num1Input , std::list<int> num2Input) {
-    std::list<int> product;
-    int digit;
-    
-    int carry = 0;
+std::list<int> BigNumCalc::subCarry(std::list<int> num1In , std::list<int> num2In , int carry , std::list<int> currentList) {
+    std::list<int>::reverse_iterator reIt1 = num1In.rbegin();
+    std::list<int>::reverse_iterator reIt2 = num2In.rbegin();
 
-    for (int x : num1Input) {
-        int result = x * digit + carry;
-        carry = result / 10;
-        product.push_back(result % 10);
+    int insertNum;
+
+    int carryVal = carry;
+
+
+    for(reIt1 ; reIt1 != num1In.rend() ; reIt1++) {
+        
+        if(*reIt1 - (*reIt2 + carryVal) < 0 ) {
+            insertNum = (*reIt1 + 10) - (*reIt2 + carryVal);    //If the result is lesser than 0, add 10 to first
+            currentList.push_front(insertNum);                  //number, change carry to -1(to bring it to next value)
+                                                                //And continue as normal (like 0 - 9 = 1 -> because 1 is the difference between 0 and 9)
+            carryVal = -1;
+        } else {
+            insertNum = *reIt1 - *reIt2 + carryVal;
+            currentList.push_front(insertNum);
+
+            carryVal = 0;
+        }
+
+        reIt2++;
+        
+
     }
 
-    if (carry > 0) {
-        product.push_back(carry);
+
+
+    return currentList;
+}
+
+
+
+
+
+
+std::list<int> BigNumCalc::mul(std::list<int> num1Input , std::list<int> num2Input) {
+    std::list<int> product = this->buildBigNum("0");
+
+    if(num1Input.size() == 1) {                     //Just add() inside a for loop, because we only do single
+                                                    //Digit multiplication, just pick the single digit one and do a bunch of adds
+        for(int i=0 ; i < *num1Input.begin() ; i++) {
+            product = this->add(num2Input , product);
+        }
+
+    } else if(num2Input.size() == 1) {
+
+        for(int i=0 ; i < *num2Input.begin() ; i++) {
+           product = this->add(num1Input , product); 
+        }
+
+    } else {
+        std::cout << "Out of bounds" << std::endl;
     }
 
     return product;

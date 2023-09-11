@@ -23,8 +23,8 @@ LinkedList::LinkedList(int* array, int len){
     // head = new Node(array[0], nullptr);
     // Node* currNode = head;
 
-    for (int i = 1; i < len; i++) {
-        insertAtPosition(i, array[i]);
+    for (int i = 2; i < len + 1; i++) {
+        insertAtPosition(i, array[i - 1]);
     }
 }
 
@@ -35,13 +35,21 @@ LinkedList::~LinkedList() {
 }
 
 void LinkedList::printList() {
-    Node* currNode = head; 
+    Node* currNode = head;
+    if(currNode == nullptr) {
+        std::cout << "";
+        return;
+    }
+
+    std::cout << "[";
 
     while (currNode != nullptr) { 
-        std::cout << currNode->get_data() << std::endl; 
-        currNode = currNode->get_link(); 
+        std::cout << currNode->get_data(); 
+        currNode = currNode->get_link();
+        if (currNode == nullptr) break;
+        std::cout << " ";
     } 
-    std::cout << std::endl;
+    std::cout << "]" << std::endl;
 }
 
 Node* LinkedList::traverse(unsigned int index) {
@@ -76,14 +84,17 @@ void LinkedList::insertAtPosition(int pos, int newNum) {
         currNode = currNode->get_link();
         position++;
         }
+        cout << "Here" << endl;
 
         prevNode = traverse(position - 1);
         prevNode->set_link(newNode);
         return;
     }
 
+    Node* nextNode = traverse(pos);
     // If it is in bound
-    Node *newNode  = new Node(newNum, prevNode->get_link());
+    Node *newNode  = new Node(newNum, nextNode->get_link());
+
     prevNode->set_link(newNode);
 }
 
