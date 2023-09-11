@@ -115,13 +115,13 @@ std::list<int> BigNumCalc::subCarry(std::list<int> num1In , std::list<int> num2I
 
     for(reIt1 = reIt1; reIt1 != num1In.rend() ; reIt1++) {
         
-        if(*reIt1 - (*reIt2 + carryVal) < 0 ) {
+        if(*reIt1 - *reIt2 - carryVal < 0 ) {
             insertNum = (*reIt1 + 10) - (*reIt2 + carryVal);    //If the result is lesser than 0, add 10 to first
             currentList.push_front(insertNum);                  //number, change carry to -1(to bring it to next value)
                                                                 //And continue as normal (like 0 - 9 = 1 -> because 1 is the difference between 0 and 9)
-            carryVal = -1;
+            carryVal = 1;
         } else {
-            insertNum = *reIt1 - *reIt2 + carryVal;
+            insertNum = *reIt1 - *reIt2 - carryVal;
             currentList.push_front(insertNum);
 
             carryVal = 0;
