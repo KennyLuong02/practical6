@@ -12,18 +12,6 @@ LinkedList::LinkedList() {
 LinkedList::LinkedList(int* array, int len){
     head = new Node(array[0], nullptr);
 
-    // Node* currNode = new Node(array[i], nullptr);
-    // head->link = currNode;
-
-    // for (int i = 1; i < len; i++) {
-    //     Node* currNode = new Node(array[i], nullptr);
-    //     currNode->link = currNode;
-
-    // }
-
-    // head = new Node(array[0], nullptr);
-    // Node* currNode = head;
-
     for (int i = 2; i < len + 1; i++) {
         insertPosition(i, array[i - 1]);
     }
@@ -66,27 +54,21 @@ Node* LinkedList::traverse(unsigned int index) {
 }
 
 void LinkedList::insertPosition(int pos, int newNum) {
-    // A pos of 1 (or less) places a new node at the front of the list
     if (pos <= 1) {
         head = new Node(newNum, head);
         return;
     }
-
     // if inserting between two nodes; i.e. [A, C] -> [A, B, C]
     Node *prevNode = traverse(pos - 2);
-
     // if inserting out of bounds
     if (prevNode == nullptr) {
         Node *newNode  = new Node(newNum, nullptr);
-
         Node* currNode = head;
         int position = 0;
-
         while (currNode != nullptr && position < pos) {
         currNode = currNode->get_link();
         position++;
         }
-
         prevNode = traverse(position - 1);
         prevNode->set_link(newNode);
         return;
@@ -110,8 +92,6 @@ bool LinkedList::deletePosition(int pos) {
     }
 
     Node* prevNode = traverse(pos - 2);
-    // prevNode->get_link() = traverse(pos + 1);
-    // prevNode->link = traverse(pos + 1);
     prevNode->set_link(traverse(pos));
 
     delete temp;
@@ -129,6 +109,10 @@ int LinkedList::get(int pos) {
 }
 
 int LinkedList::search(int target) {
+    if (head == nullptr) {
+        return false;
+    }
+
     Node* currNode = head;
     int position = 0;
     
@@ -141,6 +125,31 @@ int LinkedList::search(int target) {
 
     return position - 1;
 }
+
+
+
+
+
+bool LinkedList::swap(int pos1, int pos2) {
+    // Node* prevNode1 = traverse(pos1 - 2);
+    Node* currNode1 = traverse(pos1 - 1);
+
+    // Node* prevNode2 = traverse(pos2 - 2);
+    Node* currNode2 = traverse(pos2 - 1);
+
+    if (currNode1 == nullptr || currNode2 == nullptr) return false;
+
+    int temp = currNode1->get_data();
+
+    currNode1->set_data(currNode2->get_data());
+    currNode2->set_data(temp);
+
+    return true;
+}
+
+
+
+
 
 void LinkedList::deleteFromFront() {
     if (head == nullptr) {
